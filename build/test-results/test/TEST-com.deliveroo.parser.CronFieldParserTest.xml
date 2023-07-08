@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.deliveroo.parser.CronFieldParserTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2023-07-08T05:45:19" hostname="ZALANDO-72419" time="0.025">
+  <properties/>
+  <testcase name="[1] 4 2, MINUTES, Invalid cron field string" classname="com.deliveroo.parser.CronFieldParserTest" time="0.014"/>
+  <testcase name="[2] deliveroo, MINUTES, Invalid cron field string" classname="com.deliveroo.parser.CronFieldParserTest" time="0.001"/>
+  <testcase name="[3] 3-4-2, MINUTES, Only two values are expected for range values" classname="com.deliveroo.parser.CronFieldParserTest" time="0.0"/>
+  <testcase name="[4] aul-10, MONTH, Start value and end value should be numbers or alternative single values" classname="com.deliveroo.parser.CronFieldParserTest" time="0.001"/>
+  <testcase name="[5] 4/*/2, MINUTES, Only two values are expected for step values" classname="com.deliveroo.parser.CronFieldParserTest" time="0.0"/>
+  <testcase name="[6] 2/*, MINUTES, Step value is expected to be a number" classname="com.deliveroo.parser.CronFieldParserTest" time="0.0"/>
+  <testcase name="[7] january/4, MONTH, Start value for step values should either be *, a number or a valid alternative single value" classname="com.deliveroo.parser.CronFieldParserTest" time="0.0"/>
+  <testcase name="[8] 2/0, MONTH, Step number should be greater than 0" classname="com.deliveroo.parser.CronFieldParserTest" time="0.0"/>
+  <testcase name="[9] 7-13, MONTH, Interval is out of range" classname="com.deliveroo.parser.CronFieldParserTest" time="0.0"/>
+  <testcase name="[10] 6-3, MONTH, End should be greater than start value" classname="com.deliveroo.parser.CronFieldParserTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
