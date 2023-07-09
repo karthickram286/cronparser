@@ -2,7 +2,6 @@ package com.deliveroo.parser;
 
 import com.deliveroo.data.parser.CronFieldTestData;
 import com.deliveroo.exceptions.InvalidCronFieldException;
-import com.deliveroo.exceptions.InvalidCronStringException;
 import com.deliveroo.models.CronField;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

@@ -20,7 +20,7 @@ public class CronFieldParser {
     private final CronField cronField;
     private final Set<Integer> cronValues;
 
-    public CronFieldParser(String fieldString, CronField cronField) throws InvalidCronFieldException {
+    public CronFieldParser(String fieldString, CronField cronField) {
         this.fieldString = fieldString;
         this.cronField = cronField;
         this.cronValues = new TreeSet<>();
@@ -40,7 +40,7 @@ public class CronFieldParser {
         for (String value : listValues) {
             if (value.equals(ANY_VALUE)) {
                 fillCronValues(cronField.min, cronField.max, 1);
-            } else if (isNumber(value)) {
+            } else if (isNumber(value) && Integer.parseInt(value) >= cronField.min && Integer.parseInt(value) <= cronField.max) {
                 cronValues.add(Integer.parseInt(value));
             } else if (isValidAlternativeSingleValue(cronField, value)) {
                 cronValues.add(retrieveAlternativeSingleValue(cronField, value));
