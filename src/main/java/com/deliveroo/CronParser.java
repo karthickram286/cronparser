@@ -10,14 +10,14 @@ public class CronParser {
             System.err.println("Cron string is the only required parameter");
         }
 
-        String cronString = args[1];
+        String cronString = args[0];
 
         try {
             CronExpressionParser cronExpressionParser = new CronExpressionParser(cronString);
             cronExpressionParser.parse();
             System.out.println(cronExpressionParser);
         } catch (InvalidCronStringException e) {
-            System.err.println(e.getMessage());
+            System.err.println("Error: " + e.getMessage());
         }
     }
 
