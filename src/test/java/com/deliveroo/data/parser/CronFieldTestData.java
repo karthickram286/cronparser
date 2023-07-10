@@ -108,7 +108,6 @@ public class CronFieldTestData {
             new CronFieldFailureCase("17", CronField.MONTH, "Invalid cron field string"),
             new CronFieldFailureCase("3,&", CronField.DAY_OF_WEEK, "Invalid cron field string"),
             new CronFieldFailureCase("2/", CronField.MONTH, "Only two values are expected for step values"),
-            new CronFieldFailureCase("-3,6", CronField.DAY_OF_WEEK, "Start value and end value should be numbers or alternative single values"),
             new CronFieldFailureCase("-3,6", CronField.DAY_OF_WEEK, "Start value and end value should be numbers or alternative single values")
     );
 }
