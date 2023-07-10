@@ -20,7 +20,8 @@ public class CronFieldTestData {
             new CronFieldSuccessCase("5,8,27,19", CronField.DAY_OF_MONTH, "5 8 19 27"),
             new CronFieldSuccessCase("3,8,7,12", CronField.MONTH, "3 7 8 12"),
             new CronFieldSuccessCase("3,4,0", CronField.DAY_OF_WEEK, "0 3 4"),
-            new CronFieldSuccessCase("1,4,*", CronField.MONTH, "1 2 3 4 5 6 7 8 9 10 11 12")
+            new CronFieldSuccessCase("1,4,*", CronField.MONTH, "1 2 3 4 5 6 7 8 9 10 11 12"),
+            new CronFieldSuccessCase("5/6,8-9,59,6/8,*", CronField.MINUTES, "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59")
     );
 
     public static final List<CronFieldSuccessCase> LIST_VALUE_WITH_ALT_SINGLE_VALUES_TEST_CASES = List.of(
@@ -85,10 +86,11 @@ public class CronFieldTestData {
 
     public static final List<CronFieldFailureCase> FAILURE_TEST_CASES = List.of(
             new CronFieldFailureCase("4 2", CronField.MINUTES, "Invalid cron field string"),
-            new CronFieldFailureCase("60,*",CronField.MINUTES,"Invalid cron field string"),
-            new CronFieldFailureCase("7,19",CronField.MONTH,"Invalid cron field string"),
-            new CronFieldFailureCase("7/2,60",CronField.HOURS,"Invalid cron field string"),
-            new CronFieldFailureCase("7",CronField.DAY_OF_WEEK,"Invalid cron field string"),
+            new CronFieldFailureCase("60,*", CronField.MINUTES,"Invalid cron field string"),
+            new CronFieldFailureCase("7,19", CronField.MONTH,"Invalid cron field string"),
+            new CronFieldFailureCase("7/2,60", CronField.HOURS,"Invalid cron field string"),
+            new CronFieldFailureCase("7", CronField.DAY_OF_WEEK,"Invalid cron field string"),
+            new CronFieldFailureCase("3 4", CronField.DAY_OF_WEEK, "Invalid cron field string"),
             new CronFieldFailureCase("7,32",CronField.DAY_OF_MONTH,"Invalid cron field string"),
             new CronFieldFailureCase("deliveroo", CronField.MINUTES, "Invalid cron field string"),
             new CronFieldFailureCase("3-4-2", CronField.MINUTES, "Only two values are expected for range values"),
@@ -98,6 +100,15 @@ public class CronFieldTestData {
             new CronFieldFailureCase("january/4", CronField.MONTH, "Start value for step values should either be *, a number or a valid alternative single value"),
             new CronFieldFailureCase("2/0", CronField.MONTH, "Step number should be greater than 0"),
             new CronFieldFailureCase("7-13", CronField.MONTH, "Interval is out of range"),
-            new CronFieldFailureCase("6-3", CronField.MONTH, "End should be greater than start value")
+            new CronFieldFailureCase("6-3", CronField.MONTH, "End should be greater than start value"),
+            new CronFieldFailureCase("3,24", CronField.HOURS, "Invalid cron field string"),
+            new CronFieldFailureCase("61", CronField.MINUTES, "Invalid cron field string"),
+            new CronFieldFailureCase("9", CronField.DAY_OF_WEEK, "Invalid cron field string"),
+            new CronFieldFailureCase("34", CronField.DAY_OF_MONTH, "Invalid cron field string"),
+            new CronFieldFailureCase("17", CronField.MONTH, "Invalid cron field string"),
+            new CronFieldFailureCase("3,&", CronField.DAY_OF_WEEK, "Invalid cron field string"),
+            new CronFieldFailureCase("2/", CronField.MONTH, "Only two values are expected for step values"),
+            new CronFieldFailureCase("-3,6", CronField.DAY_OF_WEEK, "Start value and end value should be numbers or alternative single values"),
+            new CronFieldFailureCase("-3,6", CronField.DAY_OF_WEEK, "Start value and end value should be numbers or alternative single values")
     );
 }

@@ -8,8 +8,15 @@ import static org.junit.jupiter.api.Assertions.*;
 class CronExpressionParserTest {
 
     @Test
-    public void should_throw_invalid_cron_string_exception() {
+    public void should_throw_invalid_cron_string_exception_for_incomplete_expression() {
         CronExpressionParser expressionParser = new CronExpressionParser("3 * * 3 1");
+        Throwable exception = assertThrows(InvalidCronStringException.class, expressionParser::parse);
+        assertEquals("Cron string should be of format [minute] [hour] [day of month] [month] [day of week] [command]", exception.getMessage());
+    }
+
+    @Test
+    public void should_throw_invalid_cron_string_exception_for_empty_expression() {
+        CronExpressionParser expressionParser = new CronExpressionParser("           ");
         Throwable exception = assertThrows(InvalidCronStringException.class, expressionParser::parse);
         assertEquals("Cron string should be of format [minute] [hour] [day of month] [month] [day of week] [command]", exception.getMessage());
     }
