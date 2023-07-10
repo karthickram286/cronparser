@@ -1,4 +1,4 @@
-package com.deliveroo.data.parser;
+package com.deliveroo.testutil;
 
 import com.deliveroo.models.CronField;
 import lombok.AllArgsConstructor;

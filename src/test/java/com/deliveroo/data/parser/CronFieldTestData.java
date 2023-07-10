@@ -1,6 +1,8 @@
 package com.deliveroo.data.parser;
 
 import com.deliveroo.models.CronField;
+import com.deliveroo.testutil.CronFieldFailureCase;
+import com.deliveroo.testutil.CronFieldSuccessCase;
 
 import java.util.List;
 
@@ -69,7 +71,7 @@ public class CronFieldTestData {
     );
 
     public static final List<CronFieldSuccessCase> RANGE_VALUE_WITH_ALT_SINGLE_VALUE_TEST_CASES = List.of(
-            new CronFieldSuccessCase("MAR-7 ", CronField.MONTH, "3 4 5 6 7"),
+            new CronFieldSuccessCase("MAR-7", CronField.MONTH, "3 4 5 6 7"),
             new CronFieldSuccessCase("MAR-MAY", CronField.MONTH, "3 4 5"),
             new CronFieldSuccessCase("MAR-7,2-JUN", CronField.MONTH, "2 3 4 5 6 7"),
             new CronFieldSuccessCase("MAR-MAY,SEP-NOV", CronField.MONTH, "3 4 5 9 10 11"),

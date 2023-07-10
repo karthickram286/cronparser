@@ -34,6 +34,12 @@ public class CronFieldParser {
                 .collect(Collectors.joining(" "));
     }
 
+    /**
+     * Parses the cron string and separates the values with delimiter "," to parse further
+     *
+     * @param fieldString
+     * @throws InvalidCronFieldException
+     */
     private void parseListValues(String fieldString) throws InvalidCronFieldException {
         String[] listValues = fieldString.split(LIST_SEPARATOR);
 
@@ -54,6 +60,12 @@ public class CronFieldParser {
         }
     }
 
+    /**
+     * Parses the cron strings which has range values "-".
+     *
+     * @param value
+     * @throws InvalidCronFieldException
+     */
     private void parseRangeValues(String value) throws InvalidCronFieldException {
         String[] rangeValues = value.split(RANGE_SEPARATOR);
 
@@ -66,6 +78,8 @@ public class CronFieldParser {
         boolean isStartAlternativeSingleValue = isValidAlternativeSingleValue(cronField, startValue);
         boolean isEndAlternativeSingleValue = isValidAlternativeSingleValue(cronField, endValue);
 
+        validateRangeValues(startValue, endValue, isStartAlternativeSingleValue, isEndAlternativeSingleValue);
+
         if (isStartAlternativeSingleValue) {
             startValue = String.valueOf(retrieveAlternativeSingleValue(cronField, startValue));
         }
@@ -73,13 +87,21 @@ public class CronFieldParser {
             endValue = String.valueOf(retrieveAlternativeSingleValue(cronField, endValue));
         }
 
-        if ((!isNumber(startValue) && !isStartAlternativeSingleValue) || (!isNumber(endValue) && !isEndAlternativeSingleValue)) {
-            throw new InvalidCronFieldException("Start value and end value should be numbers or alternative single values");
-        }
-
         fillCronValues(Integer.parseInt(startValue), Integer.parseInt(endValue), 1);
     }
 
+    private void validateRangeValues(String startValue, String endValue, boolean isStartAlternativeSingleValue, boolean isEndAlternativeSingleValue) throws InvalidCronFieldException {
+        if ((!isNumber(startValue) && !isStartAlternativeSingleValue) || (!isNumber(endValue) && !isEndAlternativeSingleValue)) {
+            throw new InvalidCronFieldException("Start value and end value should be numbers or alternative single values");
+        }
+    }
+
+    /**
+     * Parses the cron strings with step values "/"
+     *
+     * @param value
+     * @throws InvalidCronFieldException
+     */
     private void parseStepValues(String value) throws InvalidCronFieldException {
         String[] stepValues = value.split(STEP_VALUE_SEPARATOR);
 
@@ -91,13 +113,7 @@ public class CronFieldParser {
         String stepValue = stepValues[1];
         boolean isStartAlternativeSingleValue = isValidAlternativeSingleValue(cronField, startValue);
 
-        if (!isNumber(stepValue)) {
-            throw new InvalidCronFieldException("Step value is expected to be a number");
-        }
-
-        if (!isNumber(startValue) && !startValue.equals(ANY_VALUE) && !isStartAlternativeSingleValue) {
-            throw new InvalidCronFieldException("Start value for step values should either be *, a number or a valid alternative single value");
-        }
+        validateStepValues(startValue, stepValue, isStartAlternativeSingleValue);
 
         if (isStartAlternativeSingleValue) {
             startValue = String.valueOf(retrieveAlternativeSingleValue(cronField, startValue));
@@ -110,6 +126,26 @@ public class CronFieldParser {
         }
     }
 
+    private void validateStepValues(String startValue, String stepValue, boolean isStartAlternativeSingleValue) throws InvalidCronFieldException {
+
+        if (!isNumber(stepValue)) {
+            throw new InvalidCronFieldException("Step value is expected to be a number");
+        }
+
+        if (!isNumber(startValue) && !startValue.equals(ANY_VALUE) && !isStartAlternativeSingleValue) {
+            throw new InvalidCronFieldException("Start value for step values should either be *, a number or a valid alternative single value");
+        }
+
+    }
+
+    /**
+     * Fills the Set with the range and the step provided
+     *
+     * @param start
+     * @param end
+     * @param step
+     * @throws InvalidCronFieldException
+     */
     private void fillCronValues(int start, int end, int step) throws InvalidCronFieldException {
 
         if (step == 0) {
